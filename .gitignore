@@ -1,0 +1,29 @@
+# Python
+*.pyc
+__pycache__/
+db.sqlite3
+*.log
+.env
+
+# Django
+**/migrations/
+staticfiles/
+media/
+
+# Node.js / React
+node_modules/
+build/
+dist/
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# IDE / Editor settings
+.vscode/
+.idea/
+
+# MacOS / Linux / Windows system files
+.DS_Store
+Thumbs.db
