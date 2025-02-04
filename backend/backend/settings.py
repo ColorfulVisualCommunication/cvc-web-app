@@ -14,7 +14,7 @@ from pathlib import Path
 from dotenv import load_dotenv # --added
 
 # Load the .env file --added
-load_dotenv()
+load_dotenv(dotenv_path=Path(__file__).resolve().parent.parent / '.env')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,12 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&*kxhqrdjugzo=v00lib%jy30%j3ob)qoh4w$u2=h!naq-jbdy'
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = os.getenv('DEBUG') == 'True'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+# SECURITY WARNING: update this when you have the production host
+ALLOWED_HOSTS = ['https://cvc-web-app-backend.onrender.com']
 
 
 # Application definition
@@ -62,6 +61,7 @@ MIDDLEWARE = [
 # Allow frontend (React) to communicate with Django --added
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React frontend
+    "https://cvc-web-app-frontend.onrender.com",  # Render frontend
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -142,6 +142,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Add the static directory to serve the react build files
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
